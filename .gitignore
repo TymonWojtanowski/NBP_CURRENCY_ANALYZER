@@ -1,0 +1,16 @@
+# Wirtualne środowisko Pythona
+.venv/
+venv/
+*.env
+
+# Pliki konfiguracyjne JetBrains IDE
+.idea/
+
+# Pliki cache Pythona
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Pliki systemowe
+.DS_Store
