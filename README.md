@@ -24,14 +24,14 @@ Follow these instructions to set up the project locally.
 Make sure you have the following installed on your system:
 * Python 3 (comes with Ubuntu 25.10 / Fedora)
 * Git
-* Docker ([Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/) or [Install Docker on Fedora](https://docs.fedoraproject.org/en-US/quick-docs/install-docker/))
+* Docker
 * *(Recommended)* Docker Compose (usually installed as a plugin with Docker)
 
 ### Installation & Setup
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/](https://github.com/)[YourGitHubUsername]/NBP_CURRENCY_ANALYZER.git
+    git clone [https://github.com/](https://github.com/)[TymonWojtanowski]/NBP_CURRENCY_ANALYZER.git
     cd NBP_CURRENCY_ANALYZER
     ```
 
