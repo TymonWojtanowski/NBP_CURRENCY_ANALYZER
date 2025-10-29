@@ -1,5 +1,7 @@
+import pandas as pd
 import requests
 import json
+from sqlalchemy import create_engine
 
 #NBP API URl for Table A (average exchange rates)
 npb_api_url = "https://api.nbp.pl/api/exchangerates/tables/A?format=JSON"
@@ -41,6 +43,33 @@ except requests.exceptions.RequestException as e:
     print(f" API connection error: {e}")
 except (KeyError, IndexError) as e:
     print(f" Error in JSON data structure: Expected key or index not found. {e}")
-    print("   Check if the API response structure has changed.")
 except json.JSONDecodeError:
     print(" Error: Failed to decode JSON response. Check if the API is working correctly.")
+
+df = pd.DataFrame(rates_list)
+df['effective_date'] = pd.to_datetime(effective_date)
+df = df.rename(columns={
+        'currency': 'currency_name',
+        'code': 'currency_code',
+        'mid': 'rate'
+    })
+
+# --- Step 4: Connecting to PostgreSQL and loading data ---
+
+db_connection_str = 'postgresql://postgres:mojehaslo@localhost:5432/postgres'
+
+try:
+    db_engine = create_engine(db_connection_str)
+    print("\n--- Connecting to DB ---")
+
+    with db_engine.connect() as connection:
+        print("Database Connection Successful!")
+    print(f"Writing {len(df)} rows to 'currency_rates' table...")
+    df.to_sql(
+        'CURRENCY_RATES',
+        con=db_engine,
+        if_exists='append',
+        index=False
+    )
+except Exception as e:
+    print(f" Error: {e}")
